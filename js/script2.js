@@ -1,34 +1,50 @@
-const slider = document.querySelector('.event-slider');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-
-nextBtn.addEventListener('click', () => {
-    slider.scrollLeft += 320; // Ajusta según el ancho de tus tarjetas
-});
-
-prevBtn.addEventListener('click', () => {
-    slider.scrollLeft -= 320; // Ajusta según el ancho de tus tarjetas
-});
-
-
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.section');
+    const slider = document.querySelector('.event-slider');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
 
+    if (!slider || !prevBtn || !nextBtn) return; // Verificación para evitar errores
+
+    // Detectar si la pantalla es de un dispositivo móvil (ancho <= 768px)
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    // Ancho dinámico de la tarjeta más el margen
+    const cardWidth = slider.querySelector('.event-card').offsetWidth +
+        parseInt(getComputedStyle(slider.querySelector('.event-card')).marginRight);
+
+    // Función para deslizar a la izquierda
+    prevBtn.addEventListener('click', () => {
+        slider.scrollBy({
+            left: isMobile ? -cardWidth : -(cardWidth + 20), // Desplazamiento según el dispositivo
+            behavior: 'smooth'
+        });
+    });
+
+    // Función para deslizar a la derecha
+    nextBtn.addEventListener('click', () => {
+        const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+        if (slider.scrollLeft < maxScrollLeft) {
+            slider.scrollBy({
+                left: isMobile ? cardWidth : (cardWidth + 20), // Desplazamiento según el dispositivo
+                behavior: 'smooth'
+            });
+        }
+    });
+
+
+    // Animación de aparición de secciones con IntersectionObserver
+    const sections = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                observer.unobserve(entry.target); // Deja de observar después de ser visible
             }
         });
     });
 
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    sections.forEach(section => observer.observe(section));
 });
-
-
 function animateOnScroll() {
     const elements = document.querySelectorAll('.animate');
 
