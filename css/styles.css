@@ -207,7 +207,7 @@ body.scrolled .navbar .logo img {
 }
 
 .event-card {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #333;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     flex: 0 0 300px; /* Ajusta el ancho de las tarjetas si lo deseas */
@@ -548,6 +548,41 @@ body.scrolled .navbar .logo img {
         height: 350px;
     }
 
+    .navbar .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+    .event-card {
+        flex: 0 0 80% !important; /* Forzar el ancho al 90% */
+        max-width: 300px !important; /* Limitar el ancho máximo */
+        margin: 10px auto !important; /* Centrar la tarjeta */
+        scroll-snap-align: center;
+    }
+
+    .event-card img {
+        width: 100% !important; /* Imagen adaptada al ancho */
+        height: auto; /* Mantener proporción */
+    }
+
+    .event-info h3 {
+        font-size: 16px; /* Título más pequeño */
+    }
+
+    .event-info p {
+        font-size: 12px; /* Texto más pequeño */
+    }
+    .event-slider {
+        display: flex;
+        overflow: hidden;
+        scroll-snap-type: x mandatory; /* Activar snapping */
+        scroll-behavior: smooth;
+
+    }
+
+
+
 }
 
 
@@ -792,51 +827,6 @@ body.scrolled .navbar .logo img {
 
 .gallery-item:hover img {
     transform: scale(1.1);
-}
-/* Responsividad para móviles */
-@media screen and (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 60px; /* Debajo del navbar */
-        left: 0; /* Alineado a la izquierda */
-        width: 100px; /* Ancho del menú */
-        border-radius: 8px;
-        padding: 10px 0 ;
-        text-align: center;
-
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 10px 0;
-    }
-
-    .nav-links li a {
-        color: white;
-        font-size: 18px;
-        text-decoration: none;
-
-    }
-
-    .burger {
-        font-size: 30px;
-        color: white;
-        cursor: pointer;
-        display: block;
-    }
-    .navbar .logo {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-    }
-
 }
 
 /* Hero Section */
